@@ -17,6 +17,10 @@ class TracklyViewModel(private val tracklyRepository: TracklyRepository): ViewMo
 
     val state: StateFlow<UiState> = _state.asStateFlow()
 
+    private val _activities = MutableStateFlow<List<Activity>>(emptyList())
+
+    val activities: StateFlow<List<Activity>> = _activities.asStateFlow()
+
     fun addCard(card: Card){
         viewModelScope.launch {
             _state.value = UiState.Loading
@@ -78,5 +82,11 @@ class TracklyViewModel(private val tracklyRepository: TracklyRepository): ViewMo
 
     private suspend fun getCardList(): List<Card>{
         return tracklyRepository.getAllCards()
+    }
+
+     fun getActivities(cardId: Int){
+        viewModelScope.launch {
+            _activities.value = tracklyRepository.getAllActivity(cardId)
+        }
     }
 }

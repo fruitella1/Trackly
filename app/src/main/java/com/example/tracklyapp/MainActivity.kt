@@ -12,6 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.tracklyapp.modules.appModule
+import com.example.tracklyapp.navigation.AppNavigation
+import com.example.tracklyapp.screens.TasksEditScreen
+import com.example.tracklyapp.screens.TasksScreen
 import com.example.tracklyapp.ui.theme.TracklyAppTheme
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -22,7 +25,9 @@ class MainActivity : ComponentActivity() {
         initKoin()
         enableEdgeToEdge()
         setContent {
-
+            TracklyAppTheme {
+                AppNavigation()
+            }
         }
     }
 
