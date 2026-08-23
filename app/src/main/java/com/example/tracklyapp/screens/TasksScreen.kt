@@ -1,5 +1,6 @@
 package com.example.tracklyapp.screens
 
+import android.provider.CalendarContract
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +27,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.getValue
@@ -47,7 +49,8 @@ fun TasksScreen(
     onMarkClick: (Card) -> Unit,
     cardList: List<Card>,
     onAddClick: () -> Unit,
-    onHistoryClick: (Card) -> Unit
+    onHistoryClick: (Card) -> Unit,
+    durations: Map<Int, Int>
 ) {
     Scaffold(
         topBar = {
@@ -77,7 +80,9 @@ fun TasksScreen(
                 .padding(paddingValues)
         ) {
             items(cardList) { item ->
-                CardItem(item, onDeleteClick, onMarkClick, onHistoryClick)
+                CardItem(
+                    item, onDeleteClick, onMarkClick, onHistoryClick, durations[item.id] ?: 0
+                )
                 Spacer(modifier = Modifier.height(4.dp))
             }
         }
@@ -90,7 +95,8 @@ fun CardItem(
     card: Card,
     onDeleteClick: (Card) -> Unit,
     onMarkClick: (Card) -> Unit,
-    onHistoryClick: (Card) -> Unit
+    onHistoryClick: (Card) -> Unit,
+    duration: Int
 ) {
     var showSheet by remember { mutableStateOf(false) }
 
@@ -132,6 +138,25 @@ fun CardItem(
                             fontSize = 18.sp,
                             color = Color.Gray
                         )
+                    }
+                    if (card.timeScore != null) {
+                        val progress =
+                            (duration.toFloat() / card.timeScore.toFloat()).coerceAtMost(1f)
+                        if (progress < 1f) {
+                            LinearProgressIndicator(
+                                progress = { progress },
+                                trackColor = Color(0xFF333333),
+                                color = Color(0xFF7c5cbf), modifier = Modifier.fillMaxWidth()
+                            )
+                            Text("$duration / ${card.timeScore} min", color = Color.Gray)
+                        } else {
+                            LinearProgressIndicator(
+                                color = Color.Green,
+                                progress = { progress },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Text("Goal reached", color = Color.Green)
+                        }
                     }
                 }
             }

@@ -11,4 +11,6 @@ interface TracklyRepository {
     suspend fun insert(card: Card)
     suspend fun update(card: Card)
     suspend fun getAllCards(): List<Card>
+
+    suspend fun getTotalDuration(cardId: Int, startDate: String): Int
 }

@@ -12,4 +12,7 @@ interface ActivityDao {
 
     @Query("Select* From activity_table Where cardId = :id")
     suspend fun getAll(id: Int): List<Activity>
+
+    @Query("SELECT TOTAL(duration) FROM activity_table WHERE cardId = :cardId AND date>=:startDate")
+    suspend fun getTotalDuration(cardId: Int, startDate: String): Int
 }

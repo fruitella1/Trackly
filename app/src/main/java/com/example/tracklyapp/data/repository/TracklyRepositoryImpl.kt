@@ -30,4 +30,8 @@ class TracklyRepositoryImpl(private val cardDao: CardDao, private val activityDa
     override suspend fun getAllCards(): List<Card> {
         return cardDao.getAll()
     }
+
+    override suspend fun getTotalDuration(cardId: Int, startDate: String): Int {
+        return activityDao.getTotalDuration(cardId,startDate)
+    }
 }

@@ -104,13 +104,21 @@ fun AppNavigation(viewModel: TracklyViewModel = koinViewModel()) {
                         }
                     }
 
-                    is UiState.Success -> TasksScreen(
-                        cardList = (state as UiState.Success).cards,
-                        onDeleteClick = { card -> viewModel.deleteCard(card) },
-                        onMarkClick = { card -> navController.navigate("$MARKS_EDIT_SCREEN/${card.id}") },
-                        onAddClick = { navController.navigate(TASKS_EDIT_SCREEN) },
-                        onHistoryClick = { card -> navController.navigate("$MARKS_SCREEN/${card.id}") }
-                    )
+                    is UiState.Success -> {
+                        val cards = (state as UiState.Success).cards
+                        LaunchedEffect(cards) {
+                            viewModel.loadTotalDuration(cards)
+                        }
+                        val durations by viewModel.duration.collectAsState()
+                        TasksScreen(
+                            cardList = (state as UiState.Success).cards,
+                            onDeleteClick = { card -> viewModel.deleteCard(card) },
+                            onMarkClick = { card -> navController.navigate("$MARKS_EDIT_SCREEN/${card.id}") },
+                            onAddClick = { navController.navigate(TASKS_EDIT_SCREEN) },
+                            onHistoryClick = { card -> navController.navigate("$MARKS_SCREEN/${card.id}") },
+                            durations = durations
+                        )
+                    }
                 }
             }
             composable(
