@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">TracklyApp</string>
+<string name="add_card">Добавить карточку</string>
+<string name="mark">+Отметка</string>
+<string name="history">История</string>
+<string name="delete">Удалить</string>
+<string name="no_goal">Цель не задана.</string>
+<string name="target_min">Цель: %d мин.</string>
+<string name="my_activities">Мои активности</string>
+<string name="save_activity">Сохранить активность</string>
+<string name="optional">Необязательно — оставьте пустым</string>
+<string name="e.g_120">напр. 120</string>
+<string name="weakly_goal">Цель на неделю (мин)</string>
+<string name="e.g._read_book">напр. Читать книгу</string>
+<string name="activity_name">Название активности</string>
+<string name="fill_in_the_details">Заполните детали ниже</string>
+<string name="new_activity">Новая активность</string>
+<string name="duration">Длительность: %d мин</string>
+<string name="save_mark">Сохранить отметку</string>
+<string name="time_duration">Длительность</string>
+<string name="e.g._Book_red_hat">напр. Книга - красная шляпа</string>
+<string name="mark_text">Текст отметки</string>
+<string name="new_mark">Новая отметка</string>
+</resources>

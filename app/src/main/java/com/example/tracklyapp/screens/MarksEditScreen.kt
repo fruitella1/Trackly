@@ -30,6 +30,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
+import androidx.compose.ui.res.stringResource
+import com.example.tracklyapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,7 +46,7 @@ fun MarksEditScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text("New mark") },
+                title = { Text(stringResource(R.string.new_mark)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
@@ -69,7 +71,7 @@ fun MarksEditScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    "Fill in the details below",
+                    stringResource(R.string.fill_in_the_details),
                     color = Color.LightGray,
                     fontSize = 16.sp
                 )
@@ -77,7 +79,7 @@ fun MarksEditScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    "Mark text",
+                    stringResource(R.string.mark_text),
                     color = Color.Gray,
                     fontSize = 16.sp
                 )
@@ -85,7 +87,7 @@ fun MarksEditScreen(
                 OutlinedTextField(
                     value = markText,
                     onValueChange = { markText = it },
-                    label = { Text("e.g. Book - red hat") },
+                    label = { Text(stringResource(R.string.e_g__Book_red_hat)) },
                     colors = TextFieldDefaults.colors(
                         focusedTextColor = Color.White,
                         focusedContainerColor = Color.LightGray,
@@ -100,7 +102,7 @@ fun MarksEditScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    "Time duration",
+                    stringResource(R.string.time_duration),
                     color = Color.Gray,
                     fontSize = 16.sp
                 )
@@ -108,7 +110,7 @@ fun MarksEditScreen(
                 OutlinedTextField(
                     value = durationTime,
                     onValueChange = { durationTime = it },
-                    label = { Text("e.g. 120") },
+                    label = { Text(stringResource(R.string.e_g_120)) },
                     colors = TextFieldDefaults.colors(
                         focusedTextColor = Color.White,
                         focusedContainerColor = Color.LightGray,
@@ -135,7 +137,7 @@ fun MarksEditScreen(
                         contentColor = Color.White
                     )
                 ) {
-                    Text("Save mark")
+                    Text(stringResource(R.string.save_mark))
                 }
             }
         }

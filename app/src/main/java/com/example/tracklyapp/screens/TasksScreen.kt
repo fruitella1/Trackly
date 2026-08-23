@@ -34,8 +34,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.tracklyapp.R
 import com.example.tracklyapp.ui.theme.Purple80
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,11 +50,19 @@ fun TasksScreen(
     onHistoryClick: (Card) -> Unit
 ) {
     Scaffold(
-        topBar = { TopAppBar(title = { Text("My activities", fontSize = 28.sp) }) }, floatingActionButton = {
+        topBar = {
+            TopAppBar(title = {
+                Text(
+                    stringResource(R.string.my_activities),
+                    fontSize = 28.sp
+                )
+            })
+        },
+        floatingActionButton = {
             FloatingActionButton(onAddClick) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Добавить карточку",
+                    contentDescription = stringResource(R.string.add_card),
                     tint = Purple80,
                     modifier = Modifier.size(48.dp)
                 )
@@ -109,12 +119,20 @@ fun CardItem(
                     modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center
                 ) {
                     Text(text = card.name, fontSize = 24.sp, color = Color.White)
+                    if (card.timeScore != null) {
 
-                    Text(
-                        text = "Target:${card.timeScore} min.",
-                        fontSize = 18.sp,
-                        color = Color.Gray
-                    )
+                        Text(
+                            text = stringResource(R.string.target_min, card.timeScore),
+                            fontSize = 18.sp,
+                            color = Color.Gray
+                        )
+                    } else {
+                        Text(
+                            text = stringResource(R.string.no_goal),
+                            fontSize = 18.sp,
+                            color = Color.Gray
+                        )
+                    }
                 }
             }
         }
@@ -127,19 +145,19 @@ fun CardItem(
                 modifier = Modifier.padding(16.dp)
             ) {
                 Button(onClick = { onDeleteClick(card) }, modifier = Modifier.fillMaxWidth()) {
-                    Text("Delete")
+                    Text(stringResource(R.string.delete))
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(onClick = { onHistoryClick(card) }, modifier = Modifier.fillMaxWidth()) {
-                    Text("History")
+                    Text(stringResource(R.string.history))
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(onClick = { onMarkClick(card) }, modifier = Modifier.fillMaxWidth()) {
-                    Text("+Mark")
+                    Text(stringResource(R.string.mark))
                 }
                 Spacer(modifier = Modifier.height(16.dp))
             }

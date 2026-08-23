@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">TracklyApp</string>
+    <string name="add_card">Add card</string>
+    <string name="mark">+Mark</string>
+    <string name="history">History</string>
+    <string name="delete">Delete</string>
+    <string name="no_goal">No goal.</string>
+    <string name="target_min">Target: %d min.</string>
+    <string name="my_activities">My activities</string>
+    <string name="save_activity">Save activity</string>
+    <string name="optional">Optional – leave empty ro skip</string>
+    <string name="e.g_120">e.g. 120</string>
+    <string name="weakly_goal">Weakly goal (min)</string>
+    <string name="e.g._read_book">e.g. Read book</string>
+    <string name="activity_name">Activity name</string>
+    <string name="fill_in_the_details">Fill in the details below</string>
+    <string name="new_activity">New activity</string>
+    <string name="duration">Duration: %d min</string>
+    <string name="save_mark">Save mark</string>
+    <string name="time_duration">Time duration</string>
+    <string name="e.g._Book_red_hat">e.g. Book - red hat</string>
+    <string name="mark_text">Mark text</string>
+    <string name="new_mark">New mark</string>
 </resources>

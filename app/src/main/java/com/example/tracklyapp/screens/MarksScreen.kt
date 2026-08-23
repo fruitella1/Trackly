@@ -25,6 +25,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import com.example.tracklyapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +38,7 @@ fun MarksScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text("History") },
+                title = { Text(stringResource(R.string.history)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
@@ -83,7 +85,7 @@ fun MarkItem(activity: Activity) {
                     .fillMaxWidth()
                     .padding(8.dp)
             ) {
-                Text("Duration: ${activity.duration} min")
+                Text(stringResource(R.string.duration,activity.duration))
 
                 Spacer(modifier = Modifier.width(32.dp))
 

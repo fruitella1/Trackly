@@ -20,8 +20,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.tracklyapp.R
 import com.example.tracklyapp.ui.theme.Purple80
 
 @Composable
@@ -38,18 +40,22 @@ fun TasksEditScreen(onSaveClick: (String, Int?) -> Unit) {
 
             )
         {
-            Text("New activity", color = Color.White, fontSize = 32.sp)
+            Text(stringResource(R.string.new_activity), color = Color.White, fontSize = 32.sp)
 
-            Text("Fill in the details below", color = Color.LightGray, fontSize = 16.sp)
+            Text(
+                stringResource(R.string.fill_in_the_details),
+                color = Color.LightGray,
+                fontSize = 16.sp
+            )
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Text("Activity name", color = Color.Gray, fontSize = 16.sp)
+            Text(stringResource(R.string.activity_name), color = Color.Gray, fontSize = 16.sp)
 
             OutlinedTextField(
                 value = nameText,
                 onValueChange = { nameText = it },
-                label = { Text("e.g. Read book") },
+                label = { Text(stringResource(R.string.e_g__read_book)) },
                 colors = TextFieldDefaults.colors(
                     focusedTextColor = Color.White,
                     focusedContainerColor = Color.LightGray,
@@ -62,12 +68,12 @@ fun TasksEditScreen(onSaveClick: (String, Int?) -> Unit) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Text("Weekly goal (min)", color = Color.Gray, fontSize = 16.sp)
+            Text(stringResource(R.string.weakly_goal), color = Color.Gray, fontSize = 16.sp)
 
             OutlinedTextField(
                 value = timeValue,
                 onValueChange = { timeValue = it },
-                label = { Text("e.g. 120 ") },
+                label = { Text(stringResource(R.string.e_g_120)) },
                 colors = TextFieldDefaults.colors(
                     focusedTextColor = Color.White,
                     focusedContainerColor = Color.LightGray,
@@ -78,7 +84,7 @@ fun TasksEditScreen(onSaveClick: (String, Int?) -> Unit) {
                 )
             )
 
-            Text("Optional – leave empty ro skip", color = Color.Gray, fontSize = 16.sp)
+            Text(stringResource(R.string.optional), color = Color.Gray, fontSize = 16.sp)
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -91,7 +97,7 @@ fun TasksEditScreen(onSaveClick: (String, Int?) -> Unit) {
                     contentColor = Color.White
                 )
             ) {
-                Text("Save activity")
+                Text(stringResource(R.string.save_activity))
             }
         }
     }
