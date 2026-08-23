@@ -10,15 +10,15 @@
     <string name="save_activity">Save activity</string>
     <string name="optional">Optional – leave empty ro skip</string>
     <string name="e.g_120">e.g. 120</string>
-    <string name="weakly_goal">Weakly goal (min)</string>
+    <string name="weakly_goal">Weekly goal (min)</string>
     <string name="e.g._read_book">e.g. Read book</string>
     <string name="activity_name">Activity name</string>
     <string name="fill_in_the_details">Fill in the details below</string>
     <string name="new_activity">New activity</string>
     <string name="duration">Duration: %d min</string>
     <string name="save_mark">Save mark</string>
-    <string name="time_duration">Time duration</string>
+    <string name="time_duration">Duration (min)</string>
     <string name="e.g._Book_red_hat">e.g. Book - red hat</string>
-    <string name="mark_text">Mark text</string>
-    <string name="new_mark">New mark</string>
+    <string name="mark_text">note</string>
+    <string name="new_mark">Add session</string>
 </resources>
