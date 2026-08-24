@@ -13,4 +13,6 @@ interface TracklyRepository {
     suspend fun getAllCards(): List<Card>
 
     suspend fun getTotalDuration(cardId: Int, startDate: String): Int
+
+    suspend fun getTotalDurationBetween(cardId: Int, startDate: String, endDate: String): Int
 }

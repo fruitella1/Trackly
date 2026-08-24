@@ -27,6 +27,10 @@ class TracklyViewModel(private val tracklyRepository: TracklyRepository) : ViewM
 
     val duration: StateFlow<Map<Int, Int>> = _duration.asStateFlow()
 
+    private val _streak = MutableStateFlow<Map<Int, Int>>(emptyMap())
+
+    val streak: StateFlow<Map<Int, Int>> = _streak.asStateFlow()
+
     fun addCard(card: Card) {
         viewModelScope.launch {
             _state.value = UiState.Loading
@@ -101,10 +105,41 @@ class TracklyViewModel(private val tracklyRepository: TracklyRepository) : ViewM
             val today = LocalDate.now()
             val startDate = today.with(DayOfWeek.MONDAY).toString()
             val result = mutableMapOf<Int, Int>()
-            cards.forEach { card->
-                result[card.id] = tracklyRepository.getTotalDuration(card.id,startDate)
+            cards.forEach { card ->
+                result[card.id] = tracklyRepository.getTotalDuration(card.id, startDate)
             }
             _duration.value = result
+        }
+    }
+
+    fun loadStreaks(cards: List<Card>) {
+        viewModelScope.launch {
+            val today = LocalDate.now()
+            val result = mutableMapOf<Int, Int>()
+            cards.forEach { card ->
+                var streak = 0
+                var weekStart = today.with(DayOfWeek.MONDAY)
+                var weekEnd = today.with(DayOfWeek.SUNDAY)
+                while (true) {
+                    if (card.timeScore == null) {
+                        result[card.id] = 0; break
+                    }
+                    val duration = tracklyRepository.getTotalDurationBetween(
+                        card.id,
+                        weekStart.toString(),
+                        weekEnd.toString()
+                    )
+                    if (duration >= card.timeScore) {
+                        streak++
+                        weekStart = weekStart.minusDays(7)
+                        weekEnd = weekEnd.minusDays(7)
+                    } else {
+                        break
+                    }
+                }
+                result[card.id] = streak
+                _streak.value = result
+            }
         }
     }
 }

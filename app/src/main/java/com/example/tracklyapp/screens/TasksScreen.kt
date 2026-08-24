@@ -1,6 +1,5 @@
 package com.example.tracklyapp.screens
 
-import android.provider.CalendarContract
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -51,7 +51,8 @@ fun TasksScreen(
     cardList: List<Card>,
     onAddClick: () -> Unit,
     onHistoryClick: (Card) -> Unit,
-    durations: Map<Int, Int>
+    durations: Map<Int, Int>,
+    streaks: Map<Int, Int>
 ) {
     Scaffold(
         topBar = {
@@ -82,7 +83,8 @@ fun TasksScreen(
         ) {
             items(cardList) { item ->
                 CardItem(
-                    item, onDeleteClick, onMarkClick, onHistoryClick, durations[item.id] ?: 0
+                    item, onDeleteClick, onMarkClick, onHistoryClick, durations[item.id] ?: 0,
+                    streaks[item.id] ?: 0
                 )
                 Spacer(modifier = Modifier.height(4.dp))
             }
@@ -97,7 +99,8 @@ fun CardItem(
     onDeleteClick: (Card) -> Unit,
     onMarkClick: (Card) -> Unit,
     onHistoryClick: (Card) -> Unit,
-    duration: Int
+    duration: Int,
+    streak: Int
 ) {
     var showSheet by remember { mutableStateOf(false) }
 
@@ -160,11 +163,24 @@ fun CardItem(
                         }
                     }
                 }
-                Icon(
-                    imageVector = Icons.Default.ChevronRight,
-                    contentDescription = null,
-                    tint = Color.Gray
-                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Column {
+                    Icon(
+                        imageVector = Icons.Default.ChevronRight,
+                        contentDescription = null,
+                        tint = Color.Gray
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    if(streak == 0){
+                        Text("Streak:0 weeks", color = Color.Gray)
+                    }else{
+                        Text("Streak:\uD83D\uDD25 $streak weeks", color = Color.Gray)
+                    }
+                }
             }
         }
     }

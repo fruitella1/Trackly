@@ -5,7 +5,8 @@ import com.example.tracklyapp.data.dao.CardDao
 import com.example.tracklyapp.data.entity.Activity
 import com.example.tracklyapp.data.entity.Card
 
-class TracklyRepositoryImpl(private val cardDao: CardDao, private val activityDao: ActivityDao): TracklyRepository {
+class TracklyRepositoryImpl(private val cardDao: CardDao, private val activityDao: ActivityDao) :
+    TracklyRepository {
 
     override suspend fun add(activity: Activity) {
         return activityDao.add(activity)
@@ -32,6 +33,14 @@ class TracklyRepositoryImpl(private val cardDao: CardDao, private val activityDa
     }
 
     override suspend fun getTotalDuration(cardId: Int, startDate: String): Int {
-        return activityDao.getTotalDuration(cardId,startDate)
+        return activityDao.getTotalDuration(cardId, startDate)
+    }
+
+    override suspend fun getTotalDurationBetween(
+        cardId: Int,
+        startDate: String,
+        endDate: String
+    ): Int {
+        return activityDao.getTotalDurationBetween(cardId, startDate, endDate)
     }
 }
