@@ -31,6 +31,10 @@ class TracklyViewModel(private val tracklyRepository: TracklyRepository) : ViewM
 
     val streak: StateFlow<Map<Int, Int>> = _streak.asStateFlow()
 
+    private val _report = MutableStateFlow<Map<Int, Int>>(emptyMap())
+
+    val report: StateFlow<Map<Int, Int>> = _report.asStateFlow()
+
     fun addCard(card: Card) {
         viewModelScope.launch {
             _state.value = UiState.Loading
@@ -140,6 +144,20 @@ class TracklyViewModel(private val tracklyRepository: TracklyRepository) : ViewM
                 result[card.id] = streak
                 _streak.value = result
             }
+        }
+    }
+
+    fun loadWeeklyReport(cards: List<Card>) {
+        viewModelScope.launch {
+            val today = LocalDate.now()
+            val result = mutableMapOf<Int, Int>()
+            val weekStart = today.with(DayOfWeek.MONDAY).minusDays(7).toString()
+            val endWeek = today.with(DayOfWeek.SUNDAY).minusDays(7).toString()
+            cards.forEach { card ->
+                result[card.id] =
+                    tracklyRepository.getTotalDurationBetween(card.id, weekStart, endWeek)
+            }
+            _report.value = result
         }
     }
 }

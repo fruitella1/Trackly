@@ -37,6 +37,7 @@ import com.example.tracklyapp.screens.MarksEditScreen
 import com.example.tracklyapp.screens.MarksScreen
 import com.example.tracklyapp.screens.TasksEditScreen
 import com.example.tracklyapp.screens.TasksScreen
+import com.example.tracklyapp.screens.WeeklyReportScreen
 import com.example.tracklyapp.state.UiState
 import com.example.tracklyapp.viewmodel.TracklyViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -111,7 +112,7 @@ fun AppNavigation(viewModel: TracklyViewModel = koinViewModel()) {
                             viewModel.loadStreaks(cards)
                         }
                         val durations by viewModel.duration.collectAsState()
-                        val streaks by viewModel.duration.collectAsState()
+                        val streaks by viewModel.streak.collectAsState()
                         TasksScreen(
                             cardList = (state as UiState.Success).cards,
                             onDeleteClick = { card -> viewModel.deleteCard(card) },
@@ -119,7 +120,8 @@ fun AppNavigation(viewModel: TracklyViewModel = koinViewModel()) {
                             onAddClick = { navController.navigate(TASKS_EDIT_SCREEN) },
                             onHistoryClick = { card -> navController.navigate("$MARKS_SCREEN/${card.id}") },
                             durations = durations,
-                            streaks = streaks
+                            streaks = streaks,
+                            onReportClick = { navController.navigate(WEEKLY_REPORT_SCREEN) }
                         )
                     }
                 }
@@ -166,8 +168,18 @@ fun AppNavigation(viewModel: TracklyViewModel = koinViewModel()) {
                     }
                 )
             }
+            composable(route = WEEKLY_REPORT_SCREEN) {
+                val cards = (state as? UiState.Success)?.cards ?: emptyList()
+                val report by viewModel.report.collectAsState()
+                LaunchedEffect(cards) {
+                    viewModel.loadWeeklyReport(cards)
+                }
+                WeeklyReportScreen(
+                    onBackClick = { navController.popBackStack() },
+                    cards = cards, report = report
+                )
+            }
         }
-
     }
 }
 
@@ -175,3 +187,4 @@ private const val MARKS_SCREEN = "MarksScreen"
 private const val TASKS_SCREEN = "TasksScreen"
 private const val TASKS_EDIT_SCREEN = "TasksEditScreen"
 private const val MARKS_EDIT_SCREEN = "MarksEditScreen"
+private const val WEEKLY_REPORT_SCREEN = "WeeklyReportScreen"

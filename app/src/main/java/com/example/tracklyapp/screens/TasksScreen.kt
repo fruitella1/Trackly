@@ -22,12 +22,16 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.Bookmarks
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.TopAppBar
@@ -52,15 +56,25 @@ fun TasksScreen(
     onAddClick: () -> Unit,
     onHistoryClick: (Card) -> Unit,
     durations: Map<Int, Int>,
-    streaks: Map<Int, Int>
+    streaks: Map<Int, Int>,
+    onReportClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(
-                    stringResource(R.string.my_activities),
-                    fontSize = 28.sp
-                )
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        stringResource(R.string.my_activities),
+                        fontSize = 28.sp
+                    )
+                    Spacer(modifier = Modifier.width(28.dp))
+                    IconButton(onReportClick) {
+                        Icon(
+                            imageVector = Icons.Default.BarChart,
+                            contentDescription = "Report"
+                        )
+                    }
+                }
             })
         },
         floatingActionButton = {
@@ -175,9 +189,9 @@ fun CardItem(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    if(streak == 0){
+                    if (streak == 0) {
                         Text("Streak:0 weeks", color = Color.Gray)
-                    }else{
+                    } else {
                         Text("Streak:\uD83D\uDD25 $streak weeks", color = Color.Gray)
                     }
                 }
