@@ -107,12 +107,12 @@ fun AppNavigation(viewModel: TracklyViewModel = koinViewModel()) {
 
                     is UiState.Success -> {
                         val cards = (state as UiState.Success).cards
+                        val durations by viewModel.duration.collectAsState()
+                        val streaks by viewModel.streak.collectAsState()
                         LaunchedEffect(cards) {
                             viewModel.loadTotalDuration(cards)
                             viewModel.loadStreaks(cards)
                         }
-                        val durations by viewModel.duration.collectAsState()
-                        val streaks by viewModel.streak.collectAsState()
                         TasksScreen(
                             cardList = (state as UiState.Success).cards,
                             onDeleteClick = { card -> viewModel.deleteCard(card) },
